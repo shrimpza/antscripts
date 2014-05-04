@@ -84,7 +84,7 @@
         <mkdir dir="${dist.dir}/lib"/>
         <jar jarfile="${dist.dir}/${ant.project.name}.jar" basedir="${build.src.dir}">
             <manifest>
-                <attribute name="Main-Class" value="${main.className}" />
+                <attribute name="Main-Class" value="${main.class}" />
             </manifest>
         </jar>
 
