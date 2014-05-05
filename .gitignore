@@ -1,0 +1,6 @@
+# ignore directories which ant may create
+.ant/
+build/
+dist/
+lib/
+
