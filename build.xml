@@ -89,7 +89,7 @@
         </jar>
 
         <copy todir="${dist.dir}/lib">
-            <fileset dir="${lib.dir}/default" includes="*.jar">
+            <fileset dir="${lib.dir}/default" includes="*.jar" erroronmissingdir="false">
                 <exclude name="**/*-javadoc.jar"/>
                 <exclude name="**/*-sources.jar"/>
             </fileset>
