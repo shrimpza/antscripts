@@ -15,6 +15,13 @@
     <property name="build.src.dir" location="${build.dir}/src"/>
     <property name="build.test.dir" location="${build.dir}/test"/>
     <property name="build.javadoc.dir" location="${build.dir}/docs"/>
+    <property name="build.reports.dir" location="${build.dir}/reports"/>
+
+    <!-- checkstyle configuration -->
+    <property name="checkstyle.config" location="etc/checkstyle.xml"/>
+    <property name="checkstyle.report" location="${build.reports.dir}/checkstyle.xml"/>
+    <property name="checkstyle.report.style" location="etc/checkstyle-noframes.xsl"/>
+    <property name="checkstyle.report.html" location="${build.reports.dir}/checkstyle.html"/>
 
     <path id="default.classpath">
         <fileset dir="${lib.dir}" includes="default/*.jar"/>
@@ -149,5 +156,21 @@
         <delete dir="${build.dir}"/>
         <delete dir="${lib.dir}"/>
         <delete dir="${dist.dir}"/>
+    </target>
+
+    <target name="checkstyle" depends="ivy-resolve" description="Run checkstyle code analysis">
+        <mkdir dir="${build.reports.dir}"/>
+
+        <ivy:cachepath pathid="checkstyle.classpath.refid" conf="checkstyle" />
+        <taskdef classpathref="checkstyle.classpath.refid" resource="checkstyletask.properties" />
+
+        <checkstyle config="${checkstyle.config}" failOnViolation="false">
+            <fileset dir="${src.dir}" includes="**/*.java"/>
+            <formatter type="plain"/>
+            <formatter type="xml" tofile="${checkstyle.report}"/>
+        </checkstyle>
+
+        <xslt in="${checkstyle.report}" out="${checkstyle.report.html}"
+              style="${checkstyle.report.style}"/>
     </target>
 </project>
