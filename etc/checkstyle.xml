@@ -68,11 +68,11 @@
 			<property name="scope" value="public"/>
 			<property name="tokens" value="INTERFACE_DEF"/>
 		</module>
-		<module name="JavadocVariable">
-			<property name="scope" value="protected"/>
+		<!--<module name="JavadocVariable">
+			<property name="scope" value="protected"/> -->
 			<!-- ignore public constants -->
-			<property name="ignoreNamePattern" value="[A-Z_]+"/>
-		</module>
+		<!--	<property name="ignoreNamePattern" value="[A-Z_]+"/>
+		</module> -->
 		<module name="JavadocStyle">
 			<property name="severity" value="warning"/>
 		</module>
@@ -80,7 +80,9 @@
 
 		<!-- Checks for Naming Conventions.                  -->
 		<!-- See http://checkstyle.sf.net/config_naming.html -->
-		<module name="ConstantName"/>
+		<module name="ConstantName">
+			<property name="format" value="^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$|logger"/>
+		</module>
 		<module name="LocalFinalVariableName"/>
 		<module name="LocalVariableName"/>
 		<module name="MemberName"/>
@@ -110,7 +112,9 @@
 			<property name="severity" value="warning"/>
 		</module>
 		<module name="MethodLength"/>
-		<module name="ParameterNumber"/>
+		<module name="ParameterNumber">
+			<property name="tokens" value="METHOD_DEF"/>
+		</module>
 
 
 		<!-- Checks for whitespace                               -->
@@ -133,7 +137,7 @@
 		<!-- Modifier Checks                                    -->
 		<!-- See http://checkstyle.sf.net/config_modifiers.html -->
 		<module name="ModifierOrder"/>
-		<module name="RedundantModifier"/>
+		<!-- <module name="RedundantModifier"/> -->
 
 
 		<!-- Checks for blocks. You know, those {}'s         -->
@@ -158,7 +162,9 @@
 		</module>
 		<module name="IllegalInstantiation"/>
 		<module name="InnerAssignment"/>
-		<module name="MagicNumber"/>
+		<module name="MagicNumber">
+			<property name="ignoreHashCodeMethod" value="true"/>
+		</module>
 		<module name="MissingSwitchDefault"/>
 		<module name="SimplifyBooleanExpression"/>
 		<module name="SimplifyBooleanReturn"/>
@@ -169,7 +175,7 @@
 		<module name="FinalClass"/>
 		<module name="HideUtilityClassConstructor"/>
 		<module name="InterfaceIsType"/>
-		<module name="VisibilityModifier"/>
+		<!-- <module name="VisibilityModifier"/> -->
 
 
 		<!-- Miscellaneous other checks.                   -->
@@ -181,7 +187,9 @@
 			<message key="todo.match" value="Outstanding TODO"/>
 			<property name="severity" value="info"/>
 		</module>
-		<module name="UpperEll"/>
+		<module name="UpperEll">
+			<property name="severity" value="info"/>
+		</module>
 
 	</module>
 
