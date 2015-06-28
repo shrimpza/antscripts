@@ -50,7 +50,7 @@
     <property name="ivy.home" value="${user.home}/.ant" />
     <property name="ivy.jar.dir" value="${ivy.home}/lib" />
     <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
-    <property name="ivy.lib.dir" value="${lib.dir}" />    
+    <property name="ivy.lib.dir" value="${lib.dir}" />
 
     <!-- Ivy download -->
     <target name="download-ivy" unless="offline">
@@ -173,4 +173,41 @@
         <xslt in="${checkstyle.report}" out="${checkstyle.report.html}"
               style="${checkstyle.report.style}"/>
     </target>
+
+    <target name="findbugs" depends="dist">
+        <mkdir dir="${build.reports.dir}"/>
+    
+        <!-- findbugs configuration -->
+        <property name="findbugs.version" value="3.0.1"/>
+        <property name="findbugs.home" location="${ivy.home}/findbugs"/>
+
+        <!-- create findbugs home -->
+        <mkdir dir="${findbugs.home}"/>
+        
+        <!-- download and unzip findbugs to findbugs home dir -->
+        <get src="http://tenet.dl.sourceforge.net/project/findbugs/findbugs/${findbugs.version}/findbugs-${findbugs.version}.zip" 
+             dest="${findbugs.home}/findbugs-${findbugs.version}.zip" usetimestamp="true" verbose="true" />
+        <unzip src="${findbugs.home}/findbugs-${findbugs.version}.zip" dest="${findbugs.home}/lib">
+            <patternset>
+                <include name="**/lib/*"/>
+            </patternset>
+            <mapper type="flatten"/>
+        </unzip>
+
+        <!-- define classpath and taskdef -->
+        <path id="findbugs.classpath">
+            <fileset dir="${findbugs.home}/lib/" includes="*.jar"/>
+        </path>
+        <taskdef name="findbugs" classpathref="findbugs.classpath" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
+
+        <!-- execute findbugs -->
+        <findbugs home="${findbugs.home}" output="xml:withMessages" outputFile="${build.reports.dir}/findbugs.xml" nested="false">
+            <auxClasspath path="${lib.dir}/default" />
+            <sourcePath path="${src.dir}" />
+            <class location="${dist.dir}/${ant.project.name}.jar" />
+        </findbugs>
+
+    </target>
+
+
 </project>
