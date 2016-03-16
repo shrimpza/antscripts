@@ -58,6 +58,8 @@
 
 	<module name="TreeWalker">
 
+		<property name="tabWidth" value="4"/>
+
 		<!-- Checks for Javadoc comments.                     -->
 		<!-- See http://checkstyle.sf.net/config_javadoc.html -->
 		<module name="JavadocMethod">
@@ -109,6 +111,7 @@
 		<!-- See http://checkstyle.sf.net/config_sizes.html -->
 		<module name="LineLength">
 			<property name="max" value="140"/>
+			<property name="ignorePattern" value="\s+([\/\*]|TODO).+$"/>
 			<property name="severity" value="warning"/>
 		</module>
 		<module name="MethodLength"/>
@@ -136,6 +139,7 @@
 		<module name="WhitespaceAround">
 			<property name="allowEmptyConstructors" value="true"/>
 			<property name="allowEmptyMethods" value="true"/>
+			<property name="allowEmptyTypes" value="true"/>
 		</module>
 
 
